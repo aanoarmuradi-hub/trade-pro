@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Insights</h2>
+
+<div class="card p-3 mt-3">
+    <h5>Best Trade</h5>
+    {% if best_trade %}
+        <p>{{ best_trade.pair }} | {{ best_trade.profit_loss }}</p>
+    {% else %}
+        <p>No data</p>
+    {% endif %}
+</div>
+
+<div class="card p-3 mt-3">
+    <h5>Worst Trade</h5>
+    {% if worst_trade %}
+        <p>{{ worst_trade.pair }} | {{ worst_trade.profit_loss }}</p>
+    {% else %}
+        <p>No data</p>
+    {% endif %}
+</div>
+
+<div class="card p-3 mt-3">
+    <h5>Average Profit</h5>
+    <h3>{{ avg_profit }}</h3>
+</div>
+
+{% endblock %}

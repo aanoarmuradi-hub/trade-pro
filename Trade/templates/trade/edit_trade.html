@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="form-container">
+
+    <h2>Edit Trade</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <form method="POST">
+
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label>Symbol</label>
+        {{ form.symbol }}
+    </div>
+
+    <div class="form-group">
+        <label>Trade Type</label>
+        {{ form.trade_type }}
+    </div>
+
+    <div class="form-group">
+        <label>Entry Price</label>
+        {{ form.entry_price }}
+    </div>
+
+    <div class="form-group">
+        <label>Exit Price</label>
+        {{ form.exit_price }}
+    </div>
+
+    <div class="form-group">
+        <label>Lot Size</label>
+        {{ form.lot_size }}
+    </div>
+
+    <div class="form-group">
+        <label>Risk %</label>
+        {{ form.risk_percent }}
+    </div>
+</form>
+
+        <button type="submit" class="btn-save">
+            Update Trade
+        </button>
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="tital">Dashboard</h1>
+
+<div class="dashboard-grid">
+
+    <div class="card">
+        <h5>Total Profit</h5>
+        <h2>{{ summary.total_profit }}</h2>
+    </div>
+
+    <div class="card">
+        <h5>Total Trades</h5>
+        <h2>{{ summary.total_trades }}</h2>
+    </div>
+
+    <div class="card">
+        <h5>Win Rate</h5>
+        <h2>{{ summary.win_rate }}%</h2>
+    </div>
+
+    <div class="card">
+        <h5>Trading Score</h5>
+        <h2>{{ score }}</h2>
+    </div>
+
+</div>
+
+<div class="card">
+    <h3>Equity Curve</h3>
+
+    <canvas id="equityChart" height="100"></canvas>
+</div>
+
+<div class="dashboard-grid">
+
+    <div class="card">
+        <h5>Max Win Streak</h5>
+        <h2>{{ streaks.max_win_streak }}</h2>
+    </div>
+
+    <div class="card">
+        <h5>Max Loss Streak</h5>
+        <h2>{{ streaks.max_loss_streak }}</h2>
+    </div>
+
+    <div class="card">
+        <h5>High Risk Trades</h5>
+        <h2>{{ risk.high_risk_trades }}</h2>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h3>Recent Trades</h3>
+
+    {% for trade in trades %}
+
+        <div class="trade-item">
+            {{ trade.symbol }} |
+            {{ trade.trade_type }} |
+            ${{ trade.profit_loss|floatformat:2 }}
+        </div>
+
+    {% endfor %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const labels = {{ equity|safe }}.map(e => e.date);
+const data = {{ equity|safe }}.map(e => e.equity);
+
+const ctx = document.getElementById('equityChart');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Equity Curve',
+            data: data,
+            borderWidth: 2
+        }]
+    }
+});
+</script>
+
+{% endblock %}
