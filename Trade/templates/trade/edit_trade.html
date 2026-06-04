@@ -7,9 +7,6 @@
     <h2>Edit Trade</h2>
 
     <form method="POST">
-        {% csrf_token %}
-        <form method="POST">
-
     {% csrf_token %}
 
     <div class="form-group">
@@ -41,13 +38,10 @@
         <label>Risk %</label>
         {{ form.risk_percent }}
     </div>
+
+    <button type="submit" class="btn-save">
+        Update Trade
+    </button>
+
 </form>
-
-        <button type="submit" class="btn-save">
-            Update Trade
-        </button>
-    </form>
-
-</div>
-
 {% endblock %}
