@@ -2,70 +2,101 @@
 
 {% block content %}
 
-<h1 class="tital">Dashboard</h1>
+<div class="db-container">
 
-<div class="dashboard-grid">
-
-    <div class="card">
-        <h5>Total Profit</h5>
-        <h2>{{ summary.total_profit }}</h2>
+    <div class="db-header">
+        <h1>Trading Dashboard</h1>
+        <p>Your complete trading performance overview</p>
     </div>
 
-    <div class="card">
-        <h5>Total Trades</h5>
-        <h2>{{ summary.total_trades }}</h2>
-    </div>
+    <div class="db-stats">
 
-    <div class="card">
-        <h5>Win Rate</h5>
-        <h2>{{ summary.win_rate }}%</h2>
-    </div>
-
-    <div class="card">
-        <h5>Trading Score</h5>
-        <h2>{{ score }}</h2>
-    </div>
-
-</div>
-
-<div class="card">
-    <h3>Equity Curve</h3>
-
-    <canvas id="equityChart" height="100"></canvas>
-</div>
-
-<div class="dashboard-grid">
-
-    <div class="card">
-        <h5>Max Win Streak</h5>
-        <h2>{{ streaks.max_win_streak }}</h2>
-    </div>
-
-    <div class="card">
-        <h5>Max Loss Streak</h5>
-        <h2>{{ streaks.max_loss_streak }}</h2>
-    </div>
-
-    <div class="card">
-        <h5>High Risk Trades</h5>
-        <h2>{{ risk.high_risk_trades }}</h2>
-    </div>
-
-</div>
-
-<div class="card">
-
-    <h3>Recent Trades</h3>
-
-    {% for trade in trades %}
-
-        <div class="trade-item">
-            {{ trade.symbol }} |
-            {{ trade.trade_type }} |
-            ${{ trade.profit_loss|floatformat:2 }}
+        <div class="db-stat-card">
+            <span>Total Profit</span>
+            <h2>${{ summary.total_profit|floatformat:2 }}</h2>
         </div>
 
-    {% endfor %}
+        <div class="db-stat-card">
+            <span>Total Trades</span>
+            <h2>{{ summary.total_trades }}</h2>
+        </div>
+
+        <div class="db-stat-card">
+            <span>Win Rate</span>
+            <h2>{{ summary.win_rate|floatformat:1 }}%</h2>
+        </div>
+
+        <div class="db-stat-card">
+            <span>Trading Score</span>
+            <h2>{{ score }}</h2>
+        </div>
+
+    </div>
+
+    <div class="db-main-grid">
+
+        <div class="db-chart-card">
+
+            <h3>Equity Curve</h3>
+
+            <canvas id="equityChart"></canvas>
+
+        </div>
+
+        <div class="db-side-card">
+
+            <h3>Trading Stats</h3>
+
+            <div class="db-mini-card">
+                <span>Max Win Streak</span>
+                <strong>{{ streaks.max_win_streak }}</strong>
+            </div>
+
+            <div class="db-mini-card">
+                <span>Max Loss Streak</span>
+                <strong>{{ streaks.max_loss_streak }}</strong>
+            </div>
+
+            <div class="db-mini-card">
+                <span>High Risk Trades</span>
+                <strong>{{ risk.high_risk_trades }}</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="db-trades-card">
+
+        <h3>Recent Trades</h3>
+
+        <table class="db-table">
+
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Type</th>
+                    <th>P/L</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for trade in trades %}
+
+                <tr>
+                    <td>{{ trade.symbol }}</td>
+                    <td>{{ trade.trade_type }}</td>
+                    <td>${{ trade.profit_loss|floatformat:2 }}</td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
@@ -75,17 +106,23 @@
 const labels = {{ equity|safe }}.map(e => e.date);
 const data = {{ equity|safe }}.map(e => e.equity);
 
-const ctx = document.getElementById('equityChart');
-
-new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Equity Curve',
-            data: data,
-            borderWidth: 2
+new Chart(document.getElementById('equityChart'), {
+    type:'line',
+    data:{
+        labels:labels,
+        datasets:[{
+            label:'Equity',
+            data:data,
+            tension:0.4,
+            borderColor:'#38bdf8',
+            backgroundColor:'rgba(56,189,248,.15)',
+            fill:true,
+            borderWidth:3
         }]
+    },
+    options:{
+        responsive:true,
+        maintainAspectRatio:false
     }
 });
 </script>

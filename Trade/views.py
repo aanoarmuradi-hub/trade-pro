@@ -13,6 +13,9 @@ from django.contrib import messages
 from django.db.models import Sum
 
 
+class LandingView(TemplateView):
+    template_name = "trade/landing.html"
+
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "trade/dashboard.html"

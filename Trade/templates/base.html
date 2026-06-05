@@ -7,25 +7,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trading Journal</title>
-
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
 </head>
 
 <body>
+
+    
+    <button class="menu-btn" onclick="toggleSidebar()">
+    ☰
+    </button>
 
 <div class="sidebar">
 
     <h2 class="logo">TradePro</h2>
 
-    <a href="/dashboard/">Dashboard</a>
-    <a href="/analytics/">Analytics</a>
-    <a href="/add/">Add Trade</a>
-    <a href="/list/">Trades</a>
+    <a href="/dashboard/">📊Dashboard</a>
+    <a href="/analytics/">💡Analytics</a>
+    <a href="/add/">➕Add Trade</a>
+    <a href="/list/">📈Trades</a>
 
     <form method="post" action="/logout/">
         {% csrf_token %}
         <button type="submit" class="logout-btn">
-            Logout
+            🚪Logout
+            
         </button>
     </form>
 
@@ -37,6 +44,38 @@
     {% endblock %}
 
 </div>
+<div id="loader">
 
+    <div class="spinner"></div>
+
+</div>
+<script>
+
+function toggleSidebar() {
+    document.querySelector(".sidebar").classList.toggle("show");
+}
+
+</script>
+<script>
+
+document.querySelectorAll('a').forEach(link => {
+
+    link.addEventListener('click', function(e){
+
+        if(
+            this.href &&
+            !this.href.includes('#') &&
+            !this.target
+        ){
+
+            document.getElementById('loader').style.display = 'flex';
+
+        }
+
+    });
+
+});
+
+</script>
 </body>
 </html>
