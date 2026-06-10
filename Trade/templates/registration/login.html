@@ -4,12 +4,20 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <body>
 
 <div class="card">
 
     <h2>Login</h2>
+    {% if form.errors %}
+
+    <div class="error-box">
+        Invalid username or password.
+    </div>
+
+{% endif %}
 
     {% for message in messages %}
         <p class="msg">{{ message }}</p>

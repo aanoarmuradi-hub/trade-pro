@@ -1,17 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trade Journal Pro</title>
+    <title>Trade Pro</title>
     <link rel="stylesheet" href="/static/css/landing.css">
+    <link rel="icon" type="image/png" href="{% static 'logo/logo.png' %}">
 </head>
 <body>
 
 <header class="navbar">
 
     <div class="logo">
-        <img src="#" alt="img">Trade Pro
+        <img src="{% static 'logo/logo2.png' %}" alt="logo">
     </div>
 
     <div class="nav-links">
@@ -35,7 +37,7 @@
         </h1>
 
         <p>
-            The professional trading journal that helps Forex, Gold and Crypto traders
+            The professional trading journal that helps Forex, Future and Crypto traders
             track performance, analyze mistakes and improve consistency.
         </p>
 
@@ -133,12 +135,10 @@
     </a>
 
 </section>
-<footer>
-
-    <div>
-        <h1>Use Pc</h1>
-    </div>
+<footer id="mobile-warning">
+    <h3> Use a computer for a better experience</h3>
 </footer>
+
+
 </body>
 </html>
-

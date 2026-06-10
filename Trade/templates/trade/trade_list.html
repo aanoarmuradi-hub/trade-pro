@@ -14,37 +14,85 @@
 
 <div class="card">
 
-<table class="trade-table">
+    <table class="trade-table">
 
-    <tr>
-        <th>Symbol</th>
-        <th>Type</th>
-        <th>Lot</th>
-        <th>Profit/Loss</th>
-    </tr>
+        <tr>
+            <th>Symbol</th>
+            <th>Type</th>
+            <th>Lot</th>
+            <th>Profit/Loss</th>
+            <th>Actions</th>
+        </tr>
 
-    {% for trade in trades %}
+        {% for trade in trades %}
 
-<tr>
-    <td>{{ trade.symbol }}</td>
-    <td>{{ trade.trade_type }}</td>
-    <td>{{ trade.lot_size }}</td>
-    <td>${{ trade.profit_loss|floatformat:2 }}</td>
+        <tr>
+            <td>{{ trade.symbol }}</td>
+            <td>{{ trade.trade_type }}</td>
+            <td>{{ trade.lot_size }}</td>
+            <td>${{ trade.profit_loss|floatformat:2 }}</td>
 
-    <td>
-        <a href="{% url 'edit_trade' trade.id %}" class="btn-edit">
-            Edit
-        </a>
+            <td>
+                <a href="{% url 'edit_trade' trade.id %}" class="btn-edit">
+                    Edit
+                </a>
 
-        <a href="{% url 'delete_trade' trade.id %}" class="btn-delete">
-            Delete
-        </a>
-    </td>
-</tr>
+                <a href="{% url 'delete_trade' trade.id %}" class="btn-delete">
+                    Delete
+                </a>
+            </td>
+        </tr>
 
-    {% endfor %}
+        {% endfor %}
 
-</table>
+    </table>
+
+    <!-- MOBILE CARDS -->
+
+    <div class="mobile-trades">
+
+        {% for trade in trades %}
+
+        <div class="trade-card-mobile">
+
+            <div class="trade-header">
+                <h3>{{ trade.symbol }}</h3>
+                <span class="trade-type">
+                    {{ trade.trade_type }}
+                </span>
+            </div>
+
+            <div class="trade-info">
+
+                <div>
+                    <small>Lot Size</small>
+                    <p>{{ trade.lot_size }}</p>
+                </div>
+
+                <div>
+                    <small>Profit/Loss</small>
+                    <p>${{ trade.profit_loss|floatformat:2 }}</p>
+                </div>
+
+            </div>
+
+            <div class="trade-actions">
+
+                <a href="{% url 'edit_trade' trade.id %}" class="btn-edit">
+                    Edit
+                </a>
+
+                <a href="{% url 'delete_trade' trade.id %}" class="btn-delete">
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
 
 </div>
 

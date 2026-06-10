@@ -32,6 +32,8 @@ urlpatterns = [
     path('trade/<int:pk>/delete/', TradeDeleteView.as_view(), name='delete_trade'),
     path("register/", register_view, name="register"),
     path('analytics/', AnalyticsView.as_view(), name='analytics'),
+    path("feedback/",FeedbackView.as_view(),name="feedback"),
+    path("profile/",ProfileView.as_view(),name="profile"),
 ]
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'

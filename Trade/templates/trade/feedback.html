@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="margin-top: 20px;" class="form-container">
+
+    <div class="card">
+
+        <h2>💡 Feedback</h2>
+
+        <p>
+            Help us improve Trade Pro.
+        </p>
+
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <textarea
+                name="message"
+                rows="8"
+                placeholder="Write your feedback here..."
+                required
+            ></textarea>
+
+            <button
+                type="submit"
+                class="btn-save"
+            >
+                Submit Feedback
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

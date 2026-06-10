@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Sum
-
+from .models import Feedback
 
 class LandingView(TemplateView):
     template_name = "trade/landing.html"
@@ -196,3 +196,45 @@ class AnalyticsView(LoginRequiredMixin, TemplateView):
 
         return context
 
+class FeedbackView(LoginRequiredMixin, TemplateView):
+
+    template_name = "trade/feedback.html"
+
+    login_url = "/login/"
+
+    def post(self, request, *args, **kwargs):
+
+        message = request.POST.get("message")
+
+        if message:
+
+            Feedback.objects.create(
+                user=request.user,
+                message=message
+            )
+
+            messages.success(
+                request,
+                "Feedback submitted successfully."
+            )
+
+        return redirect("feedback")
+    
+
+class ProfileView(LoginRequiredMixin, UpdateView):
+
+    model = User
+
+    fields = [
+        "username",
+        "email",
+        "first_name",
+        "last_name"
+    ]
+
+    template_name = "trade/profile.html"
+
+    success_url = reverse_lazy("profile")
+
+    def get_object(self):
+        return self.request.user
